@@ -1,0 +1,18 @@
+{
+  "frontend/src/index.css": "Global styles with music-themed OKLCH color system featuring purple/pink gradients for primary and accent colors, with custom gradient utilities for the music vibe.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, theme provider, and routes for home, track details, dashboard, and payment success/failure pages.",
+  "frontend/src/components/Layout.tsx": "Root layout component that wraps all pages with header, footer, and Stripe configuration modal (profile setup removed).",
+  "frontend/src/components/Header.tsx": "Navigation header with logo, browse link, and user authentication dropdown showing login/logout and dashboard access without profile name display.",
+  "frontend/src/components/Footer.tsx": "Simple footer with copyright and caffeine.ai attribution link.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog that prompts new users to enter their name on first login, preventing interaction until profile is created.",
+  "frontend/src/components/StripeSetupModal.tsx": "Admin-only modal for configuring Stripe payment settings including secret key and allowed countries.",
+  "frontend/src/components/TrackCard.tsx": "Reusable card component displaying track thumbnail, title, description, genre badge, and price with hover effects.",
+  "frontend/src/components/AudioPlayer.tsx": "Full-featured audio player with play/pause, seek bar, time display, volume control, and mute functionality.",
+  "frontend/src/components/UploadTrackDialog.tsx": "Dialog form for uploading tracks with authentication check that prompts login before opening, includes title, description, price, genre, audio file selection, and upload progress indicator.",
+  "frontend/src/pages/HomePage.tsx": "Main browse page with hero banner, search and genre filters, and responsive grid of track cards.",
+  "frontend/src/pages/TrackDetailsPage.tsx": "Detailed track view with album art, metadata, purchase button (with login prompt for unauthenticated users), and audio player preview (requires authentication with clickable login link).",
+  "frontend/src/pages/DashboardPage.tsx": "User dashboard with authentication requirement showing tabs for managing uploaded tracks and viewing purchased tracks, with login prompt and loading states.",
+  "frontend/src/pages/PaymentSuccessPage.tsx": "Success page shown after completed Stripe payment with navigation to dashboard or browse.",
+  "frontend/src/pages/PaymentFailurePage.tsx": "Failure page shown when payment is cancelled or fails with option to return to browsing.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including tracks, purchases, audio files, Stripe configuration, and admin checks (user profile hooks removed)."
+}

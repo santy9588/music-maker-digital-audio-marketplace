@@ -1,66 +1,35 @@
-# Music Maker - Digital Audio Marketplace
+# Candy Crush Game
 
-## Overview
-Music Maker is a digital audio marketplace where creators can upload and sell audio tracks, and buyers can browse, preview, and purchase them. All user interactions requiring authentication use Internet Identity.
+## Current State
+Fresh project. Only scaffolded backend (empty actor) and UI component library files exist.
 
-## User Roles
+## Requested Changes (Diff)
 
-### Creators
-- Register and login using Internet Identity
-- Upload audio files (MP3, WAV format) - requires authentication
-- Add track metadata: title, description, price, and genre
-- View dashboard showing their uploaded tracks and sales
+### Add
+- Match-3 game engine: 8x8 grid of colored candies (6 types: red, blue, green, yellow, purple, orange)
+- Swap mechanic: tap/click adjacent candies to swap; valid only if it creates a match of 3+
+- Match detection: horizontal and vertical matches of 3, 4, or 5
+- Cascade: after clearing matches, candies fall down and new ones fill from top; re-check for chain matches
+- Score system: +30 per candy cleared, bonus for 4-match (+60) and 5-match (+100), chain bonuses
+- Level system: each level has a target score; completing it advances to next level
+- Moves counter: limited moves per level (e.g. 20)
+- Lives system: lose a life when moves run out without meeting target
+- High score persistence via backend canister
+- Animated candy swap, match explosion, and fall effects
+- Mobile-first responsive design (portrait orientation)
+- Colorful, playful UI matching the design preview
 
-### Buyers
-- Register and login using Internet Identity
-- Browse all available tracks (no authentication required)
-- Stream audio previews - requires authentication
-- Purchase tracks - requires authentication
-- View dashboard showing purchased tracks
+### Modify
+- Replace all existing Music Maker frontend pages and components with game UI
 
-### Unauthenticated Users
-- Browse track listings
-- View track details
-- Cannot stream previews, upload tracks, or make purchases
+### Remove
+- All Music Maker code (TrackCard, AudioPlayer, UploadTrackDialog, etc.)
 
-## Core Features
-
-### Authentication
-- Internet Identity integration for secure login/logout
-- Header dropdown showing login state and user options
-- Authentication-gated actions for uploading, purchasing, and streaming
-- Redirect to login when attempting restricted actions
-
-### Track Management
-- Audio file upload with blob storage (authenticated users only)
-- Track metadata storage (title, description, price, genre)
-- Audio streaming and playback in browser (authenticated users only)
-- Track preview functionality (authenticated users only)
-
-### Purchase System
-- Stripe integration for secure payments (authenticated users only)
-- Purchase history tracking
-- Access control for purchased content
-
-### User Interface
-- Home page with track browsing and filtering
-- Track details page with embedded audio player (authentication-aware)
-- User dashboard for creators (upload management, sales overview)
-- User dashboard for buyers (purchase history, owned tracks)
-- Header with Internet Identity login/logout dropdown
-
-## Backend Data Storage
-- User profiles and Internet Identity authentication data
-- Track metadata (title, description, price, genre, creator)
-- Purchase records and transaction history
-- Audio file references and blob storage management
-
-## Backend Operations
-- User registration and authentication via Internet Identity
-- Authentication state verification for protected operations
-- Audio file upload and storage management (authenticated users only)
-- Track metadata CRUD operations
-- Purchase processing and validation (authenticated users only)
-- User dashboard data retrieval
-- Track browsing and filtering
-- Audio streaming access control (authenticated users only)
+## Implementation Plan
+1. Backend: store player high scores, level progress per user (optional login via Internet Identity)
+2. Frontend: full match-3 game engine in React with canvas or CSS grid
+3. Game board component with candy rendering, swap animation, match/explosion animation
+4. HUD: score, level, moves remaining, target score
+5. Level complete / game over modals
+6. Home screen with play button and leaderboard
+7. Mobile-optimized touch events (tap to select, tap adjacent to swap)

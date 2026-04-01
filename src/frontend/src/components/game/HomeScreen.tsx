@@ -16,14 +16,14 @@ function MiniCandy({ type, size = 36 }: { type: number; size?: number }) {
       style={{
         width: size,
         height: size,
-        background: `radial-gradient(circle at 35% 35%, ${CANDY_COLORS[type]}, ${CANDY_DARK_COLORS[type]})`,
+        background: `radial-gradient(circle at 32% 28%, ${CANDY_COLORS[type]}, ${CANDY_DARK_COLORS[type]})`,
         flexShrink: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: size * 0.45,
-        paddingTop: "12%",
-        borderRadius: 10,
+        fontSize: size * 0.42,
+        paddingTop: "10%",
+        borderRadius: 12,
       }}
     >
       {CANDY_EMOJIS[type]}
@@ -32,50 +32,58 @@ function MiniCandy({ type, size = 36 }: { type: number; size?: number }) {
 }
 
 const PREVIEW_BOARD = [0, 2, 4, 1, 3, 5, 5, 1, 3, 0, 4, 2, 2, 4, 0, 5, 1, 3];
-const HEART_KEYS = ["h0", "h1", "h2", "h3", "h4"];
-const HOW_TO = [
-  { icon: "👆", text: "Tap a candy to select it" },
-  { icon: "🔄", text: "Tap adjacent candy to swap" },
-  { icon: "🍬", text: "Match 3 or more in a row!" },
-  { icon: "⭐", text: "Reach the target score to win" },
+const FLOAT_CANDIES = [
+  { type: 0, delay: 0, left: "8%", top: "12%" },
+  { type: 1, delay: 0.8, left: "82%", top: "18%" },
+  { type: 2, delay: 1.6, left: "5%", top: "58%" },
+  { type: 3, delay: 0.4, left: "88%", top: "55%" },
+  { type: 4, delay: 1.2, left: "12%", top: "82%" },
+  { type: 5, delay: 2.0, left: "80%", top: "80%" },
 ];
 
 export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
   const year = new Date().getFullYear();
   return (
     <div
+      className="game-bg"
       style={{
         minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
-        background:
-          "linear-gradient(180deg, #1a0a2e 0%, #2D1B5E 35%, #5C1A8A 65%, #9A2EC0 100%)",
-        maxWidth: 480,
+        maxWidth: 420,
         margin: "0 auto",
+        position: "relative",
         overflow: "hidden",
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <div
-        className="gradient-game-header"
-        style={{
-          padding: "16px",
-          textAlign: "center",
-          boxShadow: "0 4px 20px rgba(122,45,226,0.4)",
-        }}
-      >
+      {/* Floating background candies */}
+      {FLOAT_CANDIES.map(({ type, delay, left, top }) => (
         <div
+          key={`float-${type}-${delay}`}
+          className="float-candy"
           style={{
-            fontSize: 11,
-            color: "rgba(255,255,255,0.7)",
-            fontFamily: "Nunito, sans-serif",
-            fontWeight: 700,
-            letterSpacing: 3,
-            textTransform: "uppercase",
+            position: "absolute",
+            left,
+            top,
+            width: 40,
+            height: 40,
+            background: `radial-gradient(circle at 32% 28%, ${CANDY_COLORS[type]}, ${CANDY_DARK_COLORS[type]})`,
+            borderRadius: 12,
+            boxShadow:
+              "0 4px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4)",
+            animationDelay: `${delay}s`,
+            opacity: 0.6,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 18,
+            paddingTop: "10%",
           }}
         >
-          🍬 Match &amp; Win 🍬
+          {CANDY_EMOJIS[type]}
         </div>
-      </div>
+      ))}
 
       <div
         style={{
@@ -85,74 +93,101 @@ export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
           alignItems: "center",
           justifyContent: "center",
           padding: "2rem 1.5rem",
-          gap: 24,
+          gap: 20,
+          position: "relative",
+          zIndex: 1,
         }}
       >
+        {/* Logo */}
         <div style={{ textAlign: "center" }}>
           <div
-            className="candy-title"
             style={{
-              fontSize: "clamp(36px, 12vw, 56px)",
-              lineHeight: 1.1,
-              marginBottom: 4,
+              background: "rgba(255,255,255,0.55)",
+              backdropFilter: "blur(12px)",
+              borderRadius: 24,
+              padding: "16px 28px",
+              boxShadow:
+                "0 8px 32px rgba(163,92,255,0.2), 0 1px 0 rgba(255,255,255,0.8) inset",
+              border: "1.5px solid rgba(255,255,255,0.7)",
+              marginBottom: 6,
             }}
           >
-            Candy
-          </div>
-          <div
-            className="candy-title"
-            style={{ fontSize: "clamp(44px, 14vw, 68px)", lineHeight: 1 }}
-          >
-            Crush
+            <div
+              className="candy-title"
+              style={{
+                fontSize: "clamp(38px,12vw,58px)",
+                lineHeight: 1.1,
+                display: "block",
+              }}
+            >
+              Candy
+            </div>
+            <div
+              className="candy-title"
+              style={{
+                fontSize: "clamp(46px,14vw,68px)",
+                lineHeight: 1,
+                display: "block",
+              }}
+            >
+              Crush
+            </div>
           </div>
           <div
             style={{
-              color: "rgba(255,255,255,0.5)",
+              color: "#9B3A8A",
               fontSize: 13,
               fontFamily: "Nunito, sans-serif",
-              fontWeight: 600,
-              marginTop: 4,
+              fontWeight: 700,
+              letterSpacing: 1,
             }}
           >
-            Sweet Match-3 Adventure
+            🍬 Sweet Match-3 Adventure 🍬
           </div>
         </div>
 
+        {/* Mini board preview */}
         <div
-          className="game-board-bg"
           style={{
+            background: "rgba(255,255,255,0.45)",
+            backdropFilter: "blur(8px)",
+            border: "1.5px solid rgba(255,255,255,0.7)",
             display: "grid",
             gridTemplateColumns: "repeat(6, 1fr)",
             gap: 4,
-            padding: 8,
-            borderRadius: 14,
+            padding: 10,
+            borderRadius: 18,
             width: "min(100%, 260px)",
+            boxShadow: "0 6px 24px rgba(163,92,255,0.15)",
           }}
         >
           {PREVIEW_BOARD.map((t, i) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: static decorative board
-            <MiniCandy key={i} type={t} size={34} />
+            <MiniCandy key={i} type={t} size={32} />
           ))}
         </div>
 
+        {/* High score */}
         {highScore > 0 && (
           <div
             style={{
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(246,211,107,0.35)",
+              background: "rgba(255,255,255,0.5)",
+              backdropFilter: "blur(8px)",
+              border: "1.5px solid rgba(255,210,50,0.5)",
               borderRadius: 50,
-              padding: "8px 20px",
+              padding: "8px 22px",
               display: "flex",
               alignItems: "center",
               gap: 8,
+              boxShadow: "0 4px 16px rgba(255,180,0,0.2)",
             }}
           >
-            <span style={{ fontSize: 18 }}>🏆</span>
+            <span style={{ fontSize: 20 }}>🏆</span>
             <span
               style={{
                 fontFamily: "Nunito, sans-serif",
-                fontWeight: 800,
-                color: "#FFE87C",
+                fontWeight: 900,
+                color: "#C47A00",
                 fontSize: 16,
               }}
             >
@@ -161,43 +196,49 @@ export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
           </div>
         )}
 
-        <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 22, marginBottom: 4 }}>
-            {HEART_KEYS.map((k, i) => (
-              <span
-                key={k}
-                className="heart-beat"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              >
-                ❤️
-              </span>
-            ))}
-          </div>
-          <div
+        {/* Lives */}
+        <div
+          style={{
+            background: "rgba(255,255,255,0.45)",
+            backdropFilter: "blur(8px)",
+            borderRadius: 50,
+            padding: "8px 20px",
+            border: "1.5px solid rgba(255,100,150,0.3)",
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          {[0, 1, 2, 3, 4].map((i) => (
+            <span
+              key={`life-${i}`}
+              className="heart-beat"
+              style={{ fontSize: 20, animationDelay: `${i * 0.18}s` }}
+            >
+              ❤️
+            </span>
+          ))}
+          <span
             style={{
-              color: "rgba(255,255,255,0.55)",
-              fontSize: 12,
+              color: "#C0305A",
               fontFamily: "Nunito, sans-serif",
-              fontWeight: 600,
+              fontWeight: 700,
+              fontSize: 13,
+              marginLeft: 4,
             }}
           >
             5 Lives
-          </div>
+          </span>
         </div>
 
+        {/* Play button */}
         <button
           type="button"
-          className="gradient-gold-btn game-heading"
+          className="btn-cta"
           style={{
-            padding: "18px 60px",
-            borderRadius: 50,
-            border: "none",
+            padding: "18px 64px",
             fontSize: 22,
-            color: "#2A1738",
-            cursor: "pointer",
-            letterSpacing: "0.05em",
-            boxShadow:
-              "0 6px 28px rgba(246,211,107,0.55), 0 2px 0 rgba(0,0,0,0.2)",
+            letterSpacing: "0.04em",
           }}
           onClick={onPlay}
           data-ocid="home.primary_button"
@@ -205,31 +246,40 @@ export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
           🎮 Play Now!
         </button>
 
+        {/* How to play */}
         <div
           style={{
-            background: "rgba(255,255,255,0.06)",
-            borderRadius: 14,
+            background: "rgba(255,255,255,0.45)",
+            backdropFilter: "blur(8px)",
+            border: "1.5px solid rgba(255,255,255,0.6)",
+            borderRadius: 18,
             padding: "14px 18px",
             width: "100%",
             maxWidth: 340,
+            boxShadow: "0 4px 16px rgba(163,92,255,0.1)",
           }}
         >
           <div
             style={{
-              color: "rgba(255,255,255,0.7)",
-              fontSize: 13,
+              color: "#7B2D80",
+              fontSize: 12,
               fontFamily: "Nunito, sans-serif",
-              fontWeight: 700,
-              marginBottom: 8,
+              fontWeight: 800,
+              marginBottom: 10,
               textAlign: "center",
               textTransform: "uppercase",
-              letterSpacing: 1,
+              letterSpacing: 1.5,
             }}
           >
             How to Play
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {HOW_TO.map(({ icon, text }) => (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {[
+              { icon: "👆", text: "Tap a candy to select" },
+              { icon: "👉", text: "Swipe or tap adjacent to swap" },
+              { icon: "🍬", text: "Match 3 or more in a row!" },
+              { icon: "⭐", text: "Reach target score to win" },
+            ].map(({ icon, text }) => (
               <div
                 key={text}
                 style={{ display: "flex", alignItems: "center", gap: 10 }}
@@ -237,9 +287,10 @@ export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
                 <span style={{ fontSize: 16 }}>{icon}</span>
                 <span
                   style={{
-                    color: "rgba(255,255,255,0.65)",
+                    color: "#5A2070",
                     fontSize: 13,
                     fontFamily: "Nunito, sans-serif",
+                    fontWeight: 600,
                   }}
                 >
                   {text}
@@ -250,10 +301,17 @@ export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
         </div>
       </div>
 
-      <footer style={{ padding: "1rem", textAlign: "center" }}>
+      <footer
+        style={{
+          padding: "1rem",
+          textAlign: "center",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         <p
           style={{
-            color: "rgba(255,255,255,0.3)",
+            color: "rgba(130,50,140,0.5)",
             fontSize: 11,
             fontFamily: "Nunito, sans-serif",
           }}
@@ -264,7 +322,7 @@ export default function HomeScreen({ onPlay, highScore }: HomeScreenProps) {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "rgba(255,255,255,0.5)",
+              color: "rgba(163,92,255,0.7)",
               textDecoration: "underline",
             }}
           >

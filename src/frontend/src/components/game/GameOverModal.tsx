@@ -18,37 +18,39 @@ export default function GameOverModal({
         className="modal-card"
         style={{
           background:
-            "linear-gradient(160deg, #1a0a2e 0%, #3B0A5C 60%, #7A2DE2 100%)",
-          border: "2px solid rgba(255,255,255,0.1)",
+            "linear-gradient(160deg, #fff2f8 0%, #fde0f0 50%, #f0d8ff 100%)",
+          border: "2px solid rgba(255,255,255,0.8)",
         }}
       >
-        <div style={{ fontSize: 56, marginBottom: 8 }}>😢</div>
+        <div style={{ fontSize: 56, marginBottom: 10 }}>😢</div>
+
         <h2
           className="game-heading"
-          style={{ color: "#fff", fontSize: 28, marginBottom: 4 }}
+          style={{ color: "#D93B8E", fontSize: 28, marginBottom: 4 }}
         >
           Game Over!
         </h2>
         <p
           style={{
-            color: "rgba(255,255,255,0.6)",
+            color: "#8B3A8A",
             fontFamily: "Nunito, sans-serif",
-            marginBottom: 16,
+            marginBottom: 14,
             fontSize: 14,
           }}
         >
           Out of moves! Better luck next time 🍬
         </p>
+
         {isNewHigh && (
           <div
             style={{
               background:
-                "linear-gradient(135deg, rgba(246,211,107,0.2), rgba(240,90,168,0.2))",
-              border: "1px solid rgba(246,211,107,0.4)",
-              borderRadius: 12,
+                "linear-gradient(135deg, rgba(255,212,50,0.25), rgba(255,79,163,0.2))",
+              border: "1.5px solid rgba(255,180,0,0.5)",
+              borderRadius: 14,
               padding: "8px 16px",
               marginBottom: 12,
-              color: "#FFE87C",
+              color: "#B8860B",
               fontFamily: "Nunito, sans-serif",
               fontWeight: 800,
               fontSize: 14,
@@ -57,13 +59,16 @@ export default function GameOverModal({
             🎉 New High Score!
           </div>
         )}
+
+        {/* Scores */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-around",
-            background: "rgba(255,255,255,0.07)",
-            borderRadius: 14,
-            padding: "12px",
+            background: "rgba(255,255,255,0.6)",
+            border: "1.5px solid rgba(255,79,163,0.2)",
+            borderRadius: 18,
+            padding: 14,
             marginBottom: 20,
             gap: 12,
           }}
@@ -71,20 +76,20 @@ export default function GameOverModal({
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                color: "rgba(255,255,255,0.5)",
-                fontSize: 11,
+                color: "#9B3A8A",
+                fontSize: 10,
                 fontFamily: "Nunito, sans-serif",
                 fontWeight: 700,
                 textTransform: "uppercase",
-                letterSpacing: 1,
+                letterSpacing: 1.5,
               }}
             >
               Score
             </div>
             <div
               style={{
-                color: "#F05AA8",
-                fontSize: 28,
+                color: "#D93B8E",
+                fontSize: 30,
                 fontFamily: "Nunito, sans-serif",
                 fontWeight: 900,
               }}
@@ -92,24 +97,24 @@ export default function GameOverModal({
               {score.toLocaleString()}
             </div>
           </div>
-          <div style={{ width: 1, background: "rgba(255,255,255,0.1)" }} />
+          <div style={{ width: 1, background: "rgba(163,92,255,0.2)" }} />
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                color: "rgba(255,255,255,0.5)",
-                fontSize: 11,
+                color: "#9B3A8A",
+                fontSize: 10,
                 fontFamily: "Nunito, sans-serif",
                 fontWeight: 700,
                 textTransform: "uppercase",
-                letterSpacing: 1,
+                letterSpacing: 1.5,
               }}
             >
               Best
             </div>
             <div
               style={{
-                color: "#FFE87C",
-                fontSize: 28,
+                color: "#A35CFF",
+                fontSize: 30,
                 fontFamily: "Nunito, sans-serif",
                 fontWeight: 900,
               }}
@@ -118,19 +123,12 @@ export default function GameOverModal({
             </div>
           </div>
         </div>
+
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <button
             type="button"
-            className="gradient-gold-btn game-heading"
-            style={{
-              width: "100%",
-              padding: "14px",
-              borderRadius: 50,
-              border: "none",
-              fontSize: 18,
-              color: "#2A1738",
-              cursor: "pointer",
-            }}
+            className="btn-cta"
+            style={{ width: "100%", padding: "15px", fontSize: 18 }}
             onClick={onRetry}
             data-ocid="gameover.confirm_button"
           >
@@ -138,18 +136,8 @@ export default function GameOverModal({
           </button>
           <button
             type="button"
-            style={{
-              width: "100%",
-              padding: "12px",
-              borderRadius: 50,
-              border: "2px solid rgba(255,255,255,0.25)",
-              background: "transparent",
-              color: "rgba(255,255,255,0.75)",
-              fontSize: 14,
-              fontFamily: "Nunito, sans-serif",
-              fontWeight: 700,
-              cursor: "pointer",
-            }}
+            className="btn-ghost"
+            style={{ width: "100%", padding: "12px", fontSize: 14 }}
             onClick={onHome}
             data-ocid="gameover.cancel_button"
           >

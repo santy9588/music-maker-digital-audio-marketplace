@@ -30,18 +30,19 @@ export default function GameScreen({
     targetScore,
     isAnimating,
     handleTap,
+    handleSwipe,
   } = useGameEngine(level, initialScore, onLevelComplete, onGameOver);
 
   return (
     <div
+      className="game-bg"
       style={{
         minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
-        background:
-          "linear-gradient(180deg, #1a0a2e 0%, #2D1B5E 40%, #4A0E7A 100%)",
-        maxWidth: 480,
+        maxWidth: 420,
         margin: "0 auto",
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
       <GameHUD
@@ -51,6 +52,7 @@ export default function GameScreen({
         moves={moves}
         lives={lives}
       />
+
       <div
         style={{
           flex: 1,
@@ -58,7 +60,7 @@ export default function GameScreen({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "12px 0",
+          padding: "14px 0",
           gap: 12,
         }}
       >
@@ -69,13 +71,15 @@ export default function GameScreen({
           newCandies={newCandies}
           invalidCells={invalidCells}
           onTap={handleTap}
+          onSwipe={handleSwipe}
         />
+
         <p
           style={{
-            color: "rgba(255,255,255,0.45)",
-            fontSize: 12,
+            color: "rgba(100,40,120,0.7)",
+            fontSize: 13,
             fontFamily: "Nunito, sans-serif",
-            fontWeight: 600,
+            fontWeight: 700,
             textAlign: "center",
             padding: "0 1rem",
           }}
@@ -83,24 +87,16 @@ export default function GameScreen({
           {isAnimating
             ? "✨ Matching..."
             : selected !== null
-              ? "Tap an adjacent candy to swap!"
-              : "Tap a candy to select"}
+              ? "👉 Swipe or tap adjacent candy!"
+              : "👆 Tap or swipe a candy"}
         </p>
       </div>
-      <div style={{ padding: "0 1rem 1.5rem", textAlign: "center" }}>
+
+      <div style={{ padding: "0 1.5rem 1.5rem", textAlign: "center" }}>
         <button
           type="button"
-          style={{
-            background: "rgba(255,255,255,0.08)",
-            border: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: 50,
-            padding: "8px 24px",
-            color: "rgba(255,255,255,0.6)",
-            fontSize: 13,
-            fontFamily: "Nunito, sans-serif",
-            fontWeight: 700,
-            cursor: "pointer",
-          }}
+          className="btn-ghost"
+          style={{ padding: "10px 28px", fontSize: 14 }}
           onClick={onHome}
           data-ocid="game.cancel_button"
         >

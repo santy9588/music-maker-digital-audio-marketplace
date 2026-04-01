@@ -35,25 +35,22 @@ export default function CandyTile({
   else if (isSelected) animClass = "candy-selected";
   else if (isInvalid) animClass = "candy-invalid";
 
-  const handleInteract = () => onTap(index);
-
   return (
     <button
       type="button"
       className={`candy-tile ${animClass}`}
       style={{
         aspectRatio: "1/1",
-        background: `radial-gradient(circle at 35% 35%, ${bg}, ${darkBg})`,
+        background: `radial-gradient(circle at 32% 28%, ${bg} 0%, ${darkBg} 100%)`,
         border: isSelected
           ? "2.5px solid rgba(255,255,255,0.95)"
-          : "1.5px solid rgba(255,255,255,0.15)",
+          : "1.5px solid rgba(255,255,255,0.25)",
         padding: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
-      onClick={handleInteract}
-      onTouchStart={(e) => {
-        e.preventDefault();
-        handleInteract();
-      }}
+      onClick={() => onTap(index)}
       data-ocid={`board.item.${(index % 8) + 1}`}
     >
       <div
@@ -63,10 +60,11 @@ export default function CandyTile({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "clamp(12px, 3.5vw, 22px)",
+          fontSize: "clamp(11px, 3.5vw, 20px)",
           lineHeight: 1,
-          paddingTop: "15%",
-          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.4))",
+          paddingTop: "12%",
+          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.35))",
+          userSelect: "none",
         }}
       >
         {emoji}

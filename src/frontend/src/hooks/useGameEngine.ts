@@ -22,6 +22,7 @@ export interface GameEngineReturn {
   targetScore: number;
   isAnimating: boolean;
   handleTap: (index: number) => void;
+  handleSwipe: (fromIndex: number, toIndex: number) => void;
   resetBoard: () => void;
 }
 
@@ -48,6 +49,9 @@ export function useGameEngine(
 
   const animatingRef = useRef(false);
   const selectedRef = useRef<number | null>(null);
+  const boardRef = useRef<number[]>(board);
+  const scoreRef = useRef(initialScore);
+  const movesRef = useRef(MOVES_PER_LEVEL);
 
   const processChain = useCallback(
     async (startBoard: number[], startScore: number): Promise<number> => {
@@ -67,6 +71,7 @@ export function useGameEngine(
 
         setExploding(new Set(matches));
         setScore(currentScore);
+        scoreRef.current = currentScore;
 
         await delay(400);
 
@@ -76,6 +81,7 @@ export function useGameEngine(
 
         const { board: filled, newIndices } = refillBoard(currentBoard);
         currentBoard = filled;
+        boardRef.current = currentBoard;
         setBoard([...currentBoard]);
         setNewCandies(new Set(newIndices));
 
@@ -86,10 +92,46 @@ export function useGameEngine(
 
       animatingRef.current = false;
       setIsAnimating(false);
+      boardRef.current = currentBoard;
       setBoard([...currentBoard]);
       return currentScore;
     },
     [],
+  );
+
+  const executeSwap = useCallback(
+    (sel: number, target: number) => {
+      if (animatingRef.current) return;
+      if (!isAdjacent(sel, target)) return;
+
+      selectedRef.current = null;
+      setSelected(null);
+
+      const currentBoard = boardRef.current;
+      const swapped = swapCells(currentBoard, sel, target);
+      const matches = findMatches(swapped);
+
+      if (matches.size === 0) {
+        setInvalidCells(new Set([sel, target]));
+        setTimeout(() => setInvalidCells(new Set()), 350);
+        return;
+      }
+
+      const newMoves = movesRef.current - 1;
+      movesRef.current = newMoves;
+      setMoves(newMoves);
+      boardRef.current = swapped;
+      setBoard(swapped);
+
+      processChain(swapped, scoreRef.current).then((finalScore) => {
+        if (finalScore >= targetScore) {
+          onLevelComplete(finalScore);
+        } else if (newMoves <= 0) {
+          onGameOver(finalScore);
+        }
+      });
+    },
+    [targetScore, processChain, onLevelComplete, onGameOver],
   );
 
   const handleTap = useCallback(
@@ -116,44 +158,27 @@ export function useGameEngine(
         return;
       }
 
+      executeSwap(sel, index);
+    },
+    [executeSwap],
+  );
+
+  const handleSwipe = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      if (animatingRef.current) return;
       selectedRef.current = null;
       setSelected(null);
-
-      const currentBoard = board;
-      const swapped = swapCells(currentBoard, sel, index);
-      const matches = findMatches(swapped);
-
-      if (matches.size === 0) {
-        setInvalidCells(new Set([sel, index]));
-        setTimeout(() => setInvalidCells(new Set()), 350);
-        return;
-      }
-
-      const newMoves = moves - 1;
-      setMoves(newMoves);
-      setBoard(swapped);
-
-      processChain(swapped, score).then((finalScore) => {
-        if (finalScore >= targetScore) {
-          onLevelComplete(finalScore);
-        } else if (newMoves <= 0) {
-          onGameOver(finalScore);
-        }
-      });
+      executeSwap(fromIndex, toIndex);
     },
-    [
-      board,
-      moves,
-      score,
-      targetScore,
-      processChain,
-      onLevelComplete,
-      onGameOver,
-    ],
+    [executeSwap],
   );
 
   const resetBoard = useCallback(() => {
-    setBoard(createBoardNoMatches());
+    const newBoard = createBoardNoMatches();
+    boardRef.current = newBoard;
+    scoreRef.current = initialScore;
+    movesRef.current = MOVES_PER_LEVEL;
+    setBoard(newBoard);
     setSelected(null);
     selectedRef.current = null;
     setExploding(new Set());
@@ -175,6 +200,7 @@ export function useGameEngine(
     targetScore,
     isAnimating,
     handleTap,
+    handleSwipe,
     resetBoard,
   };
 }

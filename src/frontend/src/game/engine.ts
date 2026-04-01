@@ -123,22 +123,32 @@ export function isAdjacent(a: number, b: number): boolean {
   );
 }
 
+// Candy Crush design colors
 export const CANDY_COLORS: string[] = [
-  "#E94B4B",
-  "#3DB5FF",
-  "#39C46A",
-  "#F4C542",
-  "#F28B2C",
-  "#B34CF2",
+  "#E53935", // red
+  "#FF8C2A", // orange
+  "#FFD54A", // yellow
+  "#42C66A", // green
+  "#2E86FF", // blue
+  "#A35CFF", // purple
 ];
 
 export const CANDY_DARK_COLORS: string[] = [
-  "#C02020",
-  "#1590E0",
+  "#B71C1C",
+  "#D46A00",
+  "#F0A800",
   "#1A9448",
-  "#D4A010",
-  "#C86008",
-  "#8820D8",
+  "#0A5CD4",
+  "#7020D0",
 ];
 
-export const CANDY_EMOJIS: string[] = ["🍎", "💙", "🍀", "⭐", "🍊", "🍇"];
+export const CANDY_LIGHT_COLORS: string[] = [
+  "#FF7070",
+  "#FFB870",
+  "#FFE87A",
+  "#80E89A",
+  "#7AB8FF",
+  "#CC9AFF",
+];
+
+export const CANDY_EMOJIS: string[] = ["🍎", "🍊", "⭐", "🍀", "💎", "🍇"];

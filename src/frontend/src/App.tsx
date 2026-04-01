@@ -70,7 +70,13 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: "100dvh", background: "#1a0a2e" }}>
+    <div
+      className="game-bg"
+      style={{
+        minHeight: "100dvh",
+        touchAction: "manipulation",
+      }}
+    >
       {screen === "home" && (
         <HomeScreen onPlay={startGame} highScore={gameState.highScore} />
       )}

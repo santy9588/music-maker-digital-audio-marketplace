@@ -1,35 +1,33 @@
-# Candy Crush Game
+# Candy Crush Mobile Game
 
 ## Current State
-Fresh project. Only scaffolded backend (empty actor) and UI component library files exist.
+Empty project — building from scratch.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Match-3 game engine: 8x8 grid of colored candies (6 types: red, blue, green, yellow, purple, orange)
-- Swap mechanic: tap/click adjacent candies to swap; valid only if it creates a match of 3+
-- Match detection: horizontal and vertical matches of 3, 4, or 5
-- Cascade: after clearing matches, candies fall down and new ones fill from top; re-check for chain matches
-- Score system: +30 per candy cleared, bonus for 4-match (+60) and 5-match (+100), chain bonuses
-- Level system: each level has a target score; completing it advances to next level
-- Moves counter: limited moves per level (e.g. 20)
-- Lives system: lose a life when moves run out without meeting target
-- High score persistence via backend canister
-- Animated candy swap, match explosion, and fall effects
-- Mobile-first responsive design (portrait orientation)
-- Colorful, playful UI matching the design preview
+- Full match-3 candy game optimized for mobile (touch/swipe)
+- 8x8 grid with 6 candy types rendered as colorful emoji/styled divs
+- Swipe gesture support (touchstart/touchend) for candy swapping
+- Tap-to-select-then-tap-to-swap fallback
+- Score tracking, move counter, level progression
+- Cascade chain matching with score multipliers
+- 5 lives system with local persistence
+- High score saved to localStorage
+- Special candies (striped, wrapped) on 4+ matches
+- Mobile viewport meta, safe-area support, PWA-feel layout
+- Smooth CSS animations for match, fall, and swap
 
 ### Modify
-- Replace all existing Music Maker frontend pages and components with game UI
+N/A
 
 ### Remove
-- All Music Maker code (TrackCard, AudioPlayer, UploadTrackDialog, etc.)
+N/A
 
 ## Implementation Plan
-1. Backend: store player high scores, level progress per user (optional login via Internet Identity)
-2. Frontend: full match-3 game engine in React with canvas or CSS grid
-3. Game board component with candy rendering, swap animation, match/explosion animation
-4. HUD: score, level, moves remaining, target score
-5. Level complete / game over modals
-6. Home screen with play button and leaderboard
-7. Mobile-optimized touch events (tap to select, tap adjacent to swap)
+1. Create React game component with full match-3 logic
+2. Implement swipe gesture detection with touch events
+3. Add CSS animations for candy movements
+4. Mobile-first layout: full-screen, no scroll, safe-area insets
+5. Score/lives/level HUD at top
+6. Level complete and game over modals

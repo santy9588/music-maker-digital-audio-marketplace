@@ -6,17 +6,6 @@ interface GameHUDProps {
   lives: number;
 }
 
-const S = {
-  label: {
-    color: "rgba(255,255,255,0.7)" as const,
-    fontSize: 10,
-    textTransform: "uppercase" as const,
-    letterSpacing: 1,
-    fontFamily: "Nunito, sans-serif",
-    fontWeight: 700,
-  },
-};
-
 const HEART_KEYS = ["h0", "h1", "h2", "h3", "h4"];
 
 export default function GameHUD({
@@ -27,28 +16,61 @@ export default function GameHUD({
   lives,
 }: GameHUDProps) {
   const progress = Math.min(100, Math.round((score / targetScore) * 100));
+  const movesLow = moves <= 5;
 
   return (
     <div
-      className="gradient-game-header"
-      style={{ padding: "12px 16px 16px", borderRadius: "0 0 20px 20px" }}
+      className="game-hud"
+      style={{ padding: "10px 16px 14px", borderRadius: "0 0 22px 22px" }}
       data-ocid="game.panel"
     >
+      {/* Logo row */}
+      <div style={{ textAlign: "center", marginBottom: 8 }}>
+        <span
+          className="candy-title"
+          style={{ fontSize: "clamp(18px,5vw,26px)", display: "inline-block" }}
+        >
+          Candy Crush
+        </span>
+      </div>
+
+      {/* Stats row */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 8,
+          marginBottom: 10,
+          gap: 4,
         }}
       >
-        <div style={{ textAlign: "center" }}>
-          <div style={S.label}>Level</div>
+        {/* Level */}
+        <div
+          style={{
+            background: "linear-gradient(135deg, #ff4fa3, #d93b8e)",
+            borderRadius: 12,
+            padding: "5px 12px",
+            textAlign: "center",
+            minWidth: 52,
+          }}
+        >
+          <div
+            style={{
+              color: "rgba(255,255,255,0.8)",
+              fontSize: 9,
+              fontFamily: "Nunito,sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Level
+          </div>
           <div
             style={{
               color: "#fff",
-              fontSize: 22,
-              fontFamily: "Nunito, sans-serif",
+              fontSize: 20,
+              fontFamily: "Nunito,sans-serif",
               fontWeight: 900,
               lineHeight: 1,
             }}
@@ -56,13 +78,26 @@ export default function GameHUD({
             {level}
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <div style={S.label}>Score</div>
+
+        {/* Score */}
+        <div style={{ textAlign: "center", flex: 1 }}>
           <div
             style={{
-              color: "#FFE87C",
-              fontSize: 24,
-              fontFamily: "Nunito, sans-serif",
+              color: "#9B3A8A",
+              fontSize: 9,
+              fontFamily: "Nunito,sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Score
+          </div>
+          <div
+            style={{
+              color: "#D93B8E",
+              fontSize: "clamp(18px,5vw,26px)",
+              fontFamily: "Nunito,sans-serif",
               fontWeight: 900,
               lineHeight: 1,
             }}
@@ -70,32 +105,71 @@ export default function GameHUD({
             {score.toLocaleString()}
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <div style={S.label}>Moves</div>
+
+        {/* Moves */}
+        <div
+          style={{
+            background: movesLow
+              ? "linear-gradient(135deg,#FF5722,#E53935)"
+              : "linear-gradient(135deg,#2E86FF,#A35CFF)",
+            borderRadius: 12,
+            padding: "5px 12px",
+            textAlign: "center",
+            minWidth: 52,
+            transition: "background 0.4s",
+          }}
+        >
           <div
             style={{
-              color: moves <= 5 ? "#F4C542" : "#fff",
-              fontSize: 22,
-              fontFamily: "Nunito, sans-serif",
+              color: "rgba(255,255,255,0.8)",
+              fontSize: 9,
+              fontFamily: "Nunito,sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Moves
+          </div>
+          <div
+            style={{
+              color: "#fff",
+              fontSize: 20,
+              fontFamily: "Nunito,sans-serif",
               fontWeight: 900,
               lineHeight: 1,
-              transition: "color 0.3s",
             }}
           >
             {moves}
           </div>
         </div>
+
+        {/* Lives */}
         <div style={{ textAlign: "center" }}>
-          <div style={S.label}>Lives</div>
-          <div style={{ fontSize: 14, lineHeight: 1.4 }}>
+          <div
+            style={{
+              color: "#9B3A8A",
+              fontSize: 9,
+              fontFamily: "Nunito,sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+              marginBottom: 2,
+            }}
+          >
+            Lives
+          </div>
+          <div style={{ fontSize: 14, lineHeight: 1, letterSpacing: 1 }}>
             {HEART_KEYS.map((k, i) => (
-              <span key={k} style={{ opacity: i < lives ? 1 : 0.25 }}>
+              <span key={k} style={{ opacity: i < lives ? 1 : 0.22 }}>
                 ❤️
               </span>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Progress bar */}
       <div>
         <div
           style={{
@@ -106,9 +180,9 @@ export default function GameHUD({
         >
           <span
             style={{
-              color: "rgba(255,255,255,0.8)",
+              color: "#9B3A8A",
               fontSize: 10,
-              fontFamily: "Nunito, sans-serif",
+              fontFamily: "Nunito,sans-serif",
               fontWeight: 700,
             }}
           >
@@ -116,16 +190,16 @@ export default function GameHUD({
           </span>
           <span
             style={{
-              color: "rgba(255,255,255,0.8)",
+              color: "#D93B8E",
               fontSize: 10,
-              fontFamily: "Nunito, sans-serif",
+              fontFamily: "Nunito,sans-serif",
               fontWeight: 700,
             }}
           >
             {score.toLocaleString()} / {targetScore.toLocaleString()}
           </span>
         </div>
-        <div className="score-progress" style={{ height: 8 }}>
+        <div className="score-progress" style={{ height: 9 }}>
           <div
             className="score-progress-fill"
             style={{ height: "100%", width: `${progress}%` }}

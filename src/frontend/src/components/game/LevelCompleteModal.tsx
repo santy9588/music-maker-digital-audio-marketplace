@@ -17,21 +17,22 @@ export default function LevelCompleteModal({
         className="modal-card"
         style={{
           background:
-            "linear-gradient(160deg, #2D1B5E 0%, #4A1280 60%, #7A2DE2 100%)",
-          border: "2px solid rgba(255,255,255,0.15)",
+            "linear-gradient(160deg, #fff5ff 0%, #fce4ff 50%, #e8d5ff 100%)",
+          border: "2px solid rgba(255,255,255,0.8)",
         }}
       >
+        {/* Stars */}
         <div
           style={{
             display: "flex",
             justifyContent: "center",
             gap: 12,
-            marginBottom: 12,
+            marginBottom: 14,
           }}
         >
           <span
             className="star-animate-1"
-            style={{ fontSize: 40, display: "inline-block" }}
+            style={{ fontSize: 38, display: "inline-block" }}
           >
             ⭐
           </span>
@@ -43,71 +44,70 @@ export default function LevelCompleteModal({
           </span>
           <span
             className="star-animate-3"
-            style={{ fontSize: 40, display: "inline-block" }}
+            style={{ fontSize: 38, display: "inline-block" }}
           >
             ⭐
           </span>
         </div>
+
         <h2
           className="game-heading"
-          style={{ color: "#FFE87C", fontSize: 28, marginBottom: 4 }}
+          style={{ color: "#D93B8E", fontSize: 28, marginBottom: 4 }}
         >
           Level {level} Complete!
         </h2>
         <p
           style={{
-            color: "rgba(255,255,255,0.7)",
+            color: "#8B3A8A",
             fontFamily: "Nunito, sans-serif",
-            marginBottom: 8,
+            marginBottom: 14,
+            fontSize: 14,
           }}
         >
           Amazing match skills! 🍬
         </p>
+
+        {/* Score card */}
         <div
           style={{
-            background: "rgba(255,255,255,0.1)",
-            borderRadius: 14,
-            padding: "12px 24px",
+            background: "rgba(255,255,255,0.6)",
+            border: "1.5px solid rgba(255,79,163,0.3)",
+            borderRadius: 18,
+            padding: "14px 24px",
             marginBottom: 20,
-            border: "1px solid rgba(255,255,255,0.15)",
           }}
         >
           <div
             style={{
-              color: "rgba(255,255,255,0.6)",
-              fontSize: 12,
+              color: "#9B3A8A",
+              fontSize: 11,
               fontFamily: "Nunito, sans-serif",
               fontWeight: 700,
               textTransform: "uppercase",
-              letterSpacing: 1,
+              letterSpacing: 1.5,
+              marginBottom: 4,
             }}
           >
             Score
           </div>
           <div
             style={{
-              color: "#FFE87C",
-              fontSize: 36,
+              color: "#D93B8E",
+              fontSize: 38,
               fontFamily: "Nunito, sans-serif",
               fontWeight: 900,
+              lineHeight: 1,
             }}
           >
             {score.toLocaleString()}
           </div>
         </div>
+
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <button
             type="button"
-            className="gradient-gold-btn game-heading"
-            style={{
-              width: "100%",
-              padding: "14px",
-              borderRadius: 50,
-              border: "none",
-              fontSize: 18,
-              color: "#2A1738",
-              cursor: "pointer",
-            }}
+            className="btn-cta"
+            style={{ width: "100%", padding: "15px", fontSize: 18 }}
             onClick={onNext}
             data-ocid="levelcomplete.confirm_button"
           >
@@ -115,18 +115,8 @@ export default function LevelCompleteModal({
           </button>
           <button
             type="button"
-            style={{
-              width: "100%",
-              padding: "12px",
-              borderRadius: 50,
-              border: "2px solid rgba(255,255,255,0.3)",
-              background: "transparent",
-              color: "rgba(255,255,255,0.8)",
-              fontSize: 14,
-              fontFamily: "Nunito, sans-serif",
-              fontWeight: 700,
-              cursor: "pointer",
-            }}
+            className="btn-ghost"
+            style={{ width: "100%", padding: "12px", fontSize: 14 }}
             onClick={onHome}
             data-ocid="levelcomplete.cancel_button"
           >

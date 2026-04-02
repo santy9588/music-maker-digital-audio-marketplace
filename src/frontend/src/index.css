@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap");
 
 @tailwind base;
@@ -414,4 +415,35 @@
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.3)
     inset;
   animation: bounce-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ─── RESUME BUILDER ─── */
+/* Allow text selection in resume builder */
+.select-text,
+.select-text * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Print styles: hide editor, show only preview full width */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-full {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+    flex: none !important;
+  }
+  body {
+    background: white !important;
+  }
+  @page {
+    margin: 0;
+    size: A4;
+  }
 }

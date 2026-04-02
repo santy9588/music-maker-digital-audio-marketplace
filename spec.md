@@ -1,33 +1,31 @@
-# Candy Crush Mobile Game
+# Resume Builder
 
 ## Current State
-Empty project — building from scratch.
+App.tsx is a blank white div. No resume builder UI exists in this workspace.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full match-3 candy game optimized for mobile (touch/swipe)
-- 8x8 grid with 6 candy types rendered as colorful emoji/styled divs
-- Swipe gesture support (touchstart/touchend) for candy swapping
-- Tap-to-select-then-tap-to-swap fallback
-- Score tracking, move counter, level progression
-- Cascade chain matching with score multipliers
-- 5 lives system with local persistence
-- High score saved to localStorage
-- Special candies (striped, wrapped) on 4+ matches
-- Mobile viewport meta, safe-area support, PWA-feel layout
-- Smooth CSS animations for match, fall, and swap
+- Full Resume Builder app with 6 templates (3 Technical, 3 Non-Technical)
+- Live split-screen editor: form inputs on left, real-time resume preview on right
+- Shareable link feature: encode resume data as base64 URL param so users can share a URL that loads their resume
+- DOCX export using a client-side approach (generate a .doc file using HTML blob with Word-compatible content type)
+- PDF export via browser print
+- Color themes (Professional, Creative, Minimal, Fresh)
+- Font customization
+- Save/load multiple resumes via localStorage
+- Profile photo upload (stored as base64)
+- Pre-written content suggestions per section/role
 
 ### Modify
-N/A
+- App.tsx: replace blank div with the full Resume Builder app
 
 ### Remove
-N/A
+- Nothing
 
 ## Implementation Plan
-1. Create React game component with full match-3 logic
-2. Implement swipe gesture detection with touch events
-3. Add CSS animations for candy movements
-4. Mobile-first layout: full-screen, no scroll, safe-area insets
-5. Score/lives/level HUD at top
-6. Level complete and game over modals
+1. Create Resume Builder in App.tsx with all sections and templates
+2. Implement shareable link: JSON.stringify resume data → btoa → append as `?resume=` URL param; load on page init from URL param
+3. Implement DOCX export: build HTML string of resume → create Blob with application/msword content type → trigger download as .doc
+4. Implement PDF export via window.print() with print CSS
+5. All state in localStorage + URL sharing
